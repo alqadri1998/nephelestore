@@ -1,0 +1,155 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+*,body,li,span,p,h1,h2,h3,h4,h5,h6,a,div,th,tr,td,label{font-family: 'Montserrat', sans-serif;}
+.red-asterisk{
+    color: #f51d34;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#toast-container > div{
+    opacity: 1 !important;
+}
+
+.primary-color-light{
+    color: #999b9e !important;
+}
+.primary-color-dark{
+    color: #333132 !important;
+}
+
+.primary-bg-color-light{
+    background-color: #999b9e !important;
+}
+.primary-bg-color-dark{
+    background-color: #333132 !important;
+}
+
+.card-label{
+    color: #999b9e !important;
+}
+
+.btn-primary, .btn-success{
+    
+    background-color: #0f0029 !important;
+    color: #fff !important;
+    border: 1px solid #0f0029 !important;
+    opacity: 0.8;
+}
+
+.btn-primary:hover, .btn-success:hover{
+   opacity: 1;
+}
+
+.notifications-container{position: relative;}
+.notifications-container .counter{
+    position: absolute;
+    top: -14px;
+    right: -20px;
+    background: #00a8ec !important;
+    color: #fff;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+}
+
+.shake:hover{
+  animation: shake 0.5s;
+  animation-iteration-count: 1;
+}
+#kt_login_signin_submit.shake{
+    animation: shake 0.5s;
+    animation-iteration-count: 1;
+}
+
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  20% { transform: translate(-1px, -2px) rotate(-1deg); }
+  40% { transform: translate(-3px, 0px) rotate(1deg); }
+  60% { transform: translate(3px, 2px) rotate(0deg); }
+  80% { transform: translate(1px, -1px) rotate(1deg); }
+  100% { transform: translate(-1px, 2px) rotate(-1deg); }
+}
+
+#kt_quick_user{
+    background-color: #031d43 !important
+}
+
+.half-width{
+    width: 50% !important;
+}
+
+.table.table-head-custom thead tr, .table.table-head-custom thead th{
+    color: #999b9e !important;
+}
+
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-text{
+    color: #00a8ec !important;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-arrow, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-arrow{
+    color: #00a8ec !important;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-icon,
+ .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-icon,
+ .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon{
+    color: #646f29 !important;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-text, 
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text,
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text{
+    color: #646f29 !important;
+}
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-bullet.menu-bullet-dot > span, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-bullet.menu-bullet-dot > span{
+    background-color: #00a8ec !important;
+}
+.menu-item a:hover{ 
+    color: #00a8ec !important;
+}
+
+.slideDown{
+    animation-name: slideDown;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    visibility: visible !important;                     
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+    }
+    50%{
+        transform: translateY(8%);
+    }
+    65%{
+        transform: translateY(-4%);
+    }
+    80%{
+        transform: translateY(4%);
+    }
+    95%{
+        transform: translateY(-2%);
+    }           
+    100% {
+        transform: translateY(0%);
+    }       
+}
+
+@media print{
+    .hidden-print{display: none;}
+}
+
+
+/* Datatables  */
+
+.dataTables_info{
+    display: none !important;
+}
+.status-select2 .select2-selection{
+    padding: 7px 0 !important;
+ }
+ /*.note-editable {
+    height: auto !important;
+}*/

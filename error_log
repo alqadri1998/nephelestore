@@ -1,0 +1,53 @@
+[15-May-2022 02:07:49 Africa/Cairo] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 5.6.40. in /home/nephele/public_html/vendor/composer/platform_check.php on line 25
+[15-May-2022 02:07:58 Africa/Cairo] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 5.6.40. in /home/nephele/public_html/vendor/composer/platform_check.php on line 25
+[15-May-2022 02:08:20 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 02:08:20 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 02:08:31 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 02:08:31 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 02:08:38 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 02:08:38 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 02:09:37 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 02:09:38 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 03:23:55 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 03:23:55 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 04:01:54 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 04:01:54 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 04:23:38 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 04:23:38 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 04:23:39 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 04:23:39 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 09:18:58 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 09:18:58 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 15:59:55 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 15:59:55 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 15:59:57 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[15-May-2022 15:59:57 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[16-May-2022 00:05:47 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[16-May-2022 00:05:47 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[16-May-2022 00:17:36 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[16-May-2022 00:17:36 Africa/Cairo] PHP Fatal error:  Directive 'safe_mode' is no longer available in PHP in Unknown on line 0
+[16-May-2022 00:18:01 Africa/Cairo] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.4.0". You are running 5.6.40. in /home/nephele/public_html/vendor/composer/platform_check.php on line 25
+[07-Jul-2022 11:51:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in /home/nephele/public_html/vendor/mpdf/mpdf/src/Writer/FontWriter.php on line 346
+[07-Jul-2022 11:51:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 524288 bytes) in /home/nephele/public_html/vendor/facade/ignition/src/ErrorPage/ErrorPageViewModel.php on line 151
+[07-Jul-2022 11:55:19 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 176128 bytes) in /home/nephele/public_html/vendor/composer/ClassLoader.php on line 571
+[07-Jul-2022 11:55:19 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in /home/nephele/public_html/vendor/filp/whoops/src/Whoops/Run.php on line 496
+[07-Jul-2022 11:55:29 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 176128 bytes) in /home/nephele/public_html/vendor/composer/ClassLoader.php on line 571
+[07-Jul-2022 11:55:29 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in /home/nephele/public_html/vendor/filp/whoops/src/Whoops/Run.php on line 496
+[07-Jul-2022 11:56:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 176128 bytes) in /home/nephele/public_html/vendor/composer/ClassLoader.php on line 571
+[07-Jul-2022 11:56:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in /home/nephele/public_html/vendor/filp/whoops/src/Whoops/Run.php on line 496
+[07-Jul-2022 23:23:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 176128 bytes) in /home/nephele/public_html/vendor/composer/ClassLoader.php on line 571
+[07-Jul-2022 23:23:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in /home/nephele/public_html/vendor/filp/whoops/src/Whoops/Run.php on line 496
+[07-Jul-2022 23:23:44 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in /home/nephele/public_html/vendor/mpdf/mpdf/src/Writer/FontWriter.php on line 346
+[07-Jul-2022 23:23:44 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 524288 bytes) in /home/nephele/public_html/vendor/facade/ignition/src/ErrorPage/ErrorPageViewModel.php on line 151
+[25-Sep-2022 09:44:33 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/nephele/public_html/vendor/intervention/image/src/Intervention/Image/Gd/Decoder.php on line 154
+[25-Sep-2022 09:44:33 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/nephele/public_html/vendor/symfony/error-handler/Error/FatalError.php on line 1
+[25-Sep-2022 09:45:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/nephele/public_html/vendor/intervention/image/src/Intervention/Image/Gd/Decoder.php on line 154
+[25-Sep-2022 09:45:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/nephele/public_html/vendor/symfony/error-handler/Error/FatalError.php on line 1
+[25-Sep-2022 09:46:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/nephele/public_html/vendor/intervention/image/src/Intervention/Image/Gd/Decoder.php on line 154
+[25-Sep-2022 09:46:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/nephele/public_html/vendor/symfony/error-handler/Error/FatalError.php on line 1
+[25-Sep-2022 09:51:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/nephele/public_html/vendor/intervention/image/src/Intervention/Image/Gd/Decoder.php on line 154
+[25-Sep-2022 09:51:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/nephele/public_html/vendor/symfony/error-handler/Error/FatalError.php on line 1
+[25-Sep-2022 10:01:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/nephele/public_html/vendor/intervention/image/src/Intervention/Image/Gd/Decoder.php on line 154
+[25-Sep-2022 10:01:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/nephele/public_html/vendor/symfony/error-handler/Error/FatalError.php on line 1
+[25-Sep-2022 10:06:15 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 8192 bytes) in /home/nephele/public_html/vendor/intervention/image/src/Intervention/Image/Gd/Decoder.php on line 154
+[25-Sep-2022 10:06:15 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in /home/nephele/public_html/vendor/symfony/error-handler/Error/FatalError.php on line 1

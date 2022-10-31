@@ -1,0 +1,291 @@
+<?php
+$wishList = Auth::check() ? Auth::user()->wishlist()->pluck('products.id')->toArray() : [];
+?>
+@extends('site.layouts.app')
+@section('title')
+| {{ $product->name }}
+@endsection
+@section('content')
+<div class="container">
+<nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ t('Home', 'site') }}</a></li>
+        <li class="breadcrumb-item"><a href="#">{{ $product->name }}</a></li>
+    </ol>
+</nav>
+
+<div class="product-single-container product-single-default">
+    
+
+    <div class="row products">
+        <div class="col-lg-5 col-md-6 product-single-gallery">
+            <div class="product-slider-container">
+                <div class="label-group">
+                    {{-- @if($product->new) --}}
+                    {{--     <div class="product-label label-hot">{{ t('New') }}</div>
+                        @endif --}}
+                    {{-- <div class="product-label label-hot">HOT</div> --}}
+                    @if(!empty($product->special_price))
+                            <div class="product-label label-sale">
+                            - {{ number_format((($product->price - $product->special_price) / $product->price) * 100, 2)}}%
+                        </div>
+                        @endif
+
+                </div>
+                @if($product->getMedia('images'))
+                <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
+                    @foreach($product->getMedia('images') as $img)
+                    @if($img->getFullUrl())
+                    <div class="product-item active">
+                        <img class="product-single-image"
+                            src="{{ $img->getFullUrl() }}"
+                            data-zoom-image="{{ $img->getFullUrl() }}" width="468"
+                            height="468" alt="{{ $product->name }}" />
+                    </div>
+                    @endif
+                    @endforeach
+
+
+                </div>
+                @endif
+                <!-- End .product-single-carousel -->
+                <span class="prod-full-screen">
+                    <i class="icon-plus"></i>
+                </span>
+            </div>
+
+            <div class="prod-thumbnail owl-dots">
+                @foreach($product->getMedia('images') as $img)
+                @if($img->getFullUrl())
+                <div class="owl-dot">
+                    <img src="{{ $img->getFullUrl() }}" width="110" height="110"
+                        alt="product-thumbnail" />
+                </div>
+                @endif
+                @endforeach
+
+            </div>
+        </div><!-- End .product-single-gallery -->
+
+        <div class="col-lg-7 col-md-6 product-single-details">
+            <div class="row">
+                <div class="col-md-10"><h1 class="product-title">{{ $product->name }}</h1></div>
+                <div class="col-md-2">
+                    <a href="#" class="btn-icon-wish addToWishlist {{ in_array($product->id,$wishList) ? 'added-wishlist':'' }}"
+                                data-product-id="{{ $product->id }}"
+                                title="{{ in_array($product->id,$wishList) ? t('Remove from Wishlist', 'site'):t('Add to Wishlist', 'site') }}"><i
+                                        class="icon-heart" style="font-size: 22px;"></i></a>
+                            </div>
+            </div>
+
+
+            <div class="product-nav">
+
+            </div>
+
+            <div class="ratings-container">
+                <div class="product-ratings">
+                    <span class="ratings" style="width:60%"></span><!-- End .ratings -->
+                    <span class="tooltiptext tooltip-top"></span>
+                </div><!-- End .product-ratings -->
+
+                <a href="#" class="rating-link">( 5 )</a>
+            </div><!-- End .ratings-container -->
+
+            <hr class="short-divider">
+
+            <div class="price-box">
+                @if($product->special_price && $product->special_price > 0)
+                    <span class="old-price">{{ $product->price .' '. t('SAR', 'site') }}</span>
+                    <span class="new-price">{{ $product->special_price .' '. t('SAR','site') }}</span>
+                @else
+                    <span class="new-price">{{ $product->price .' '. t('SAR','site') }}</span>
+                @endif
+                {{-- <span class="old-price">$1,999.00</span> --}}
+                {{-- <span class="new-price">$1,699.00</span> --}}
+            </div><!-- End .price-box -->
+
+            <div class="product-desc">
+                <p>
+                    {!! $product->description !!}
+                </p>
+            </div><!-- End .product-desc -->
+            <hr class="divider mb-0 mt-0">
+            @if(count($product->variants) > 0)
+            <h3>{{ t('Colors', 'site') }}</h3>
+            <ul class="single-info-list product-variants-list">
+
+                    @foreach($product->variants as $variant)
+                    <li class="product-variants" data-id="{{ $variant->id }}" style="background-color:{{ $variant->color->color }} !important;color: #fff;">
+                        {{ $variant->color->name  }}
+                    </li>
+                    @endforeach
+
+
+
+                {{-- <li>
+                    {{ t('Category') }}: <strong><a href="#" class="product-category">{{ $product->category->name }}</a></strong>
+                </li> --}}
+
+
+            </ul>
+            @endif
+
+            <div class="product-action">
+                <div class="product-single-qty">
+                    {{-- <input class="horizontal-quantity form-control" type="text"> --}}
+                </div><!-- End .product-single-qty -->
+
+                <a href="javascript:;" class="btn-add-cart btn btn-dark add-cart mr-2"
+                 data-toggle="modal"
+                  data-target="#addCartModal"
+                   data-product-id="{{ $product->id }}"
+                    data-variant="" id="add-cart" 
+                 data-image="{{ $product->getFirstMedia('thumb')->getFullUrl() }}" data-title="{{ $product->name }}" title="{{ t('Add To Cart','site') }}">{{ t('Add To Cart','site') }}</a>
+
+                {{-- <a href="cart.html" class="btn btn-gray view-cart d-none">{{ t('View cart','site') }}</a> --}}
+            </div><!-- End .product-action -->
+
+            <hr class="divider mb-0 mt-0">
+            
+            <!-- End .product single-share -->
+        </div><!-- End .product-single-details -->
+    </div><!-- End .row -->
+</div><!-- End .product-single-container -->
+
+<div class="product-single-tabs">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="product-tab-desc" data-toggle="tab"
+                href="#product-desc-content" role="tab" aria-controls="product-desc-content"
+                aria-selected="true">{{ t('Description','site') }}</a>
+        </li>
+
+       
+
+        <li class="nav-item">
+            <a class="nav-link" id="product-tab-reviews" data-toggle="tab"
+                href="#product-reviews-content" role="tab" aria-controls="product-reviews-content"
+                aria-selected="false">{{ t('Reviews','site') }}</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel"
+            aria-labelledby="product-tab-desc">
+            <div class="product-desc-content">
+                {!! $product->description !!}
+            </div><!-- End .product-desc-content -->
+        </div><!-- End .tab-pane -->
+
+        <div class="tab-pane fade" id="product-reviews-content" role="tabpanel"
+            aria-labelledby="product-tab-reviews">
+            <div class="product-reviews-content">
+                @if(count($product->reviews) > 0)
+                <h3 class="reviews-title">{{ t('Review for','site') }} {{ $product->name }}</h3>
+
+                <div class="comment-list" style="width: 77%;">
+                    @foreach($product->reviews()->where('status', 1)->get() as $review)
+                    <div class="comments">
+                        <figure class="img-thumbnail">
+                            <img src="{{ url('assets/site/images/author.jpg') }}" alt="author" width="80"
+                                height="80">
+                        </figure>
+
+                        <div class="comment-block">
+                            <div class="comment-header">
+                                <div class="comment-arrow"></div>
+
+                                <div class="ratings-container float-sm-right">
+                                    <div class="product-ratings">
+                                        <span class="ratings" style="width:{{ ($review->rating*2)*10 }}%"></span>
+
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div>
+                                </div>
+
+                                <span class="comment-by">
+                                    <strong>{{ $review->user->name }}</strong> – {{ $review->created_at }}
+                                </span>
+                            </div>
+
+                            <div class="comment-content">
+                                <p>{{ $review->comment }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="divider"></div>
+                @endif
+
+
+                <div class="add-product-review" style="width: 70%;">
+                    <h3 class="review-title">{{ t('Add a review','site') }}</h3>
+                    @if(Auth::check())
+                    <form action="{{ route('addReview', $product->id) }}" method="post" class="comment-form m-0">
+                        {{ csrf_field() }}
+                        <div class="rating-form">
+                            <label for="rating">{{ t('Your rating','site') }} <span class="required">*</span></label>
+                            <span class="rating-stars">
+                                <a class="star-1" href="#">1</a>
+                                <a class="star-2" href="#">2</a>
+                                <a class="star-3" href="#">3</a>
+                                <a class="star-4" href="#">4</a>
+                                <a class="star-5" href="#">5</a>
+                            </span>
+
+                            <select name="rating" id="rating" required="" style="display: none;">
+                                <option value="">Rate…</option>
+                                <option value="5">Perfect</option>
+                                <option value="4">Good</option>
+                                <option value="3">Average</option>
+                                <option value="2">Not that bad</option>
+                                <option value="1">Very poor</option>
+                            </select>
+                        </div>
+                    <div class="divider"></div>
+                        <div class="form-group">
+                            <label>{{ t('Your comment','site') }} <span class="required">*</span></label>
+                            <textarea cols="5" name="comment" rows="6" class="form-control form-control-sm" required></textarea>
+                        </div><!-- End .form-group -->
+
+
+
+                        <input type="submit" class="btn btn-primary" value="{{ t('Submit','site') }}">
+                    </form>
+                    @else
+                    <p>{{ t('Login to be able to add a comment','site') }}</p>
+                    <br>
+                    <a href="{{ route('login') }}" class="btn btn-primary"> {{ t('Login','site') }}</a>
+                    @endif
+                </div>
+                {{-- End .add-product-review --}}
+            </div><!-- End .product-reviews-content -->
+        </div><!-- End .tab-pane -->
+    </div><!-- End .tab-content -->
+</div><!-- End .product-single-tabs -->
+
+
+<!-- End .products-section -->
+
+<hr class="mt-0 m-b-5" />
+
+<div class="product-widgets-container row pb-2">
+    
+</div>
+<!-- End .row -->
+</div><!-- End .container -->
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('.product-variants').on('click', function() {
+                $(this).addClass('active').siblings().removeClass('active');
+                $('#add-cart').attr('data-variant', $(this).data('id'));
+            });
+
+        })
+    </script>
+@endsection
