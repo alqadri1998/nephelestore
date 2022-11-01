@@ -28,12 +28,14 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
 		Route::get('/', 'DashboardController@index')->name('dashboard');
 		Route::get('logout', 'AuthController@logout')->name('logout');
 
-		
+
 
 		//Roles & Permissions Routes
 		Route::resource('roles', 'RoleController');
 		//Admins Routes
 		Route::resource('admins', 'AdminController');
+		Route::resource('carts', 'LeftCartController');
+		
 		//categories Routes
 		Route::resource('categories', 'CategoryController');
 
@@ -43,7 +45,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
     	// products Routes
 		Route::resource('products', 'ProductController');
 		Route::get('reviews/products', 'ProductController@product_reviews')->name('reviews');
-		 Route::get('/reviews/{id}/active', 'ProductController@reviews_active')->name('reviews_active'); 
+		 Route::get('/reviews/{id}/active', 'ProductController@reviews_active')->name('reviews_active');
 		//pages
 		Route::resource('pages', 'PageController');
 		// slider
@@ -59,7 +61,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
 
 		// coupons Routes
         Route::resource('coupons', 'CouponController');
-        
+
         //orders
         // products Routes
         Route::resource('orders', 'OrderController');
@@ -75,12 +77,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
         Route::get('backup/store','BackupController@store')->name('backup.store');
         Route::get('backup/restore/{id}','BackupController@restore')->name('backup.restore');
         Route::delete('backup/delete/{id}','BackupController@delete')->name('backup.destroy');
-        
+
         /* Settings Route */
         Route::get('/settings', 'AdminController@settings', ['middleware' => 'permission:settings'])->name('settings');
         Route::post('/settings', 'AdminController@changeSetting', ['middleware' => 'permission:settings'])->name('changeSetting');
-        Route::get('media/delete/{id}', 'MediaController@deleteMedia')->name('deleteMedia');       
-		
+        Route::get('media/delete/{id}', 'MediaController@deleteMedia')->name('deleteMedia');
+
 	});
 	Route::get('language/{locale}', 'HomeController@changeLang')->name('changeLang');
 });

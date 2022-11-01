@@ -15,8 +15,8 @@
             text-align: {{ app()->getLocale() == 'ar' ? 'right' : 'left' }};
         }
         #mysr-form-form-el#mysr-form-form-el#mysr-form-form-el.mysr-form-moyasarForm[payment-form=true] .mysr-form-ccInputGroup .mysr-form-ccIconsGroup{
-            right: {{ app()->getLocale() == 'ar' ? 'unset' : '0' }} !important;
-            left: {{ app()->getLocale() == 'ar' ? '0' : 'unset' }} !important;
+            /* right: {{ app()->getLocale() == 'ar' ? 'unset' : '0' }} !important;
+            left: {{ app()->getLocale() == 'ar' ? '0' : 'unset' }} !important; */
         }
     </style>
 @endsection
@@ -28,27 +28,45 @@
     </div>
     <hr>
 
-    
+
     <div class="row">
+
         <div class="col-lg-7">
-            <form action="booking-success.html">
-                <div class="payment-widget">
-                    <h4 class="card-title">{{ t('Payment', 'site') }}</h4>
-                    
-                    <!-- Credit Card Payment -->
-                    <div class="payment-list">
-                        <div class="mysr-form"></div>
-                    </div>
-                    <!-- /Credit Card Payment -->
-                    
-                    <!-- Submit Section -->
-                {{--  <div class="submit-section mt-4">
-                        <button type="submit" class="btn btn-primary submit-btn">Confirm and Pay</button>
-                    </div> --}}
-                    <!-- /Submit Section -->
-                    
-                </div>
-            </form>
+
+            <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ t('Payment', 'site') }}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"> {{ t('Payment', 'site') }} - Tamara  </a>
+                </li>
+
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <form action="booking-success.html">
+                        <div class="payment-widget">
+                            {{-- <h4 class="card-title">{{ t('Payment', 'site') }}</h4> --}}
+
+                            <!-- Credit Card Payment -->
+                            <div class="payment-list">
+                                <div class="mysr-form"></div>
+                            </div>
+                            <!-- /Credit Card Payment -->
+
+                            <!-- Submit Section -->
+                        {{--  <div class="submit-section mt-4">
+                                <button type="submit" class="btn btn-primary submit-btn">Confirm and Pay</button>
+                            </div> --}}
+                            <!-- /Submit Section -->
+
+                        </div>
+                    </form></div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">.
+                    ..</div>
+
+              </div>
+
         </div>
         <!-- End .col-lg-8 -->
 
@@ -62,7 +80,7 @@
                             <th colspan="">{{ t('Products','site') }}</th>
                             {{-- <th>{{ t('Size/Color','site') }}</th> --}}
                             <th>{{ t('Quantity','site') }}</th>
-                            
+
                             <th>{{ t('Total','site') }}</th>
                         </tr>
                     </thead>
@@ -112,7 +130,7 @@
                                 <td><h4>{{ t('Discount','site') }}</h4></td>
                                 <td class="price-col"> <span>{{ number_format($order->discount, 2) .' '.t('SAR','site')}}</span></td>
                             </tr class="cart-subtotal">
-                            
+
                         @endif
                         <tr>
                             <td><h4>{{ t('Shipping Price','site') }}</h4></td>
@@ -126,13 +144,13 @@
                                 <td><h4>{{ t('Total including tax','site') }}</h4></td>
                                 <td class="price-col"><span>{{ number_format($order->total,2) .' '.t('SAR','site')}}</span></td>
                             </tr>
-                        
 
-                        
+
+
                     </tfoot>
                 </table>
 
-               
+
             </div>
             <!-- End .cart-summary -->
         </div>
@@ -140,12 +158,12 @@
     {{-- </div> --}}
     <!-- End .row -->
 </div>
-    
+
 
 @endsection
 
 @section('scripts')
-    @section('scripts') 
+    @section('scripts')
     <script>
         Moyasar.init({
             element: '.mysr-form',
@@ -165,7 +183,7 @@
                 validate_merchant_url: 'https://api.moyasar.com/v1/applepay/initiate',
             }
         });
-        
+
     </script>
 
 @endsection

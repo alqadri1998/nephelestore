@@ -95,6 +95,16 @@ return [
 		'type' => 'single',
 		'childs' => [],
 	],
+	// /***********carts******************/
+
+	[
+		'title' => 'carts.index',
+		'permission' => 'list-users',
+		'route' => 'admin.carts.index',
+		'icon' => 'menu-icon flaticon-cart',
+		'type' => 'single',
+		'childs' => [],
+	],
 	// /***********Reservations******************/
 
 	// /***********pages******************/

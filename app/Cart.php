@@ -5,6 +5,7 @@ use App\CartStorage;
 use App\Product;
 use Auth;
 use DB;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Validator;
 use Session;
 class Cart
@@ -18,6 +19,16 @@ class Cart
 	{
 		$this->session = $session;
 	}
+
+    /**
+     * Get the user that owns the Cart
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
 	public static function __callStatic($name, $arguments)
 	{

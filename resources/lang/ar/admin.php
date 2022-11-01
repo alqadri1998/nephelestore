@@ -58,7 +58,7 @@ return [
 		'updated Successfully'=>'تم التحديث بنجاح',
 		'removed Successfull'=>'تم الحذف بنجاح',
 		'removed Successfully'=>'تم الحذف بنجاح',
-		
+
 	],
      'this data already exists'=>'هذه البيانات مستخدمه من قبل',
 	'categories'=>[
@@ -75,6 +75,9 @@ return [
 	],
 	'products'=>[
 		'index'=>'المنتجات',
+	],
+	'carts'=>[
+		'index'=>'السله',
 	],
 	'reports'=>[
 		'salons'=>'تقارير الصالونات',
@@ -166,7 +169,7 @@ return [
 	'Next' => 'التالى',
 	'coupon'=> 'الكوبون',
 	'value'=>'القيمة',
-	'category'=>'القسم',	
+	'category'=>'القسم',
 	'categories_counts'=>'عدد المقالات',
 	'site_name_ar'=>'اسم الموقع بالعربي',
 	'site_name_en'=>'اسم الموقع بالإنجليزية',
@@ -260,7 +263,7 @@ return [
     'Update'=>'تحديث',
 	'Save'=>'حفظ',
 	'Cancel'=>'الغاء',
-	
+
 	'Facbook Link'=>'رابط الفيسبوك',
 	'Twitter Link'=>'رابط تويتر',
 	'Instagram Link'=>'رابط انستجرام',
