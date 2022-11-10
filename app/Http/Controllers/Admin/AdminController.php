@@ -88,7 +88,7 @@ class AdminController extends Controller
         return view('admin.pages.admins.show',compact('admin'));
     }
 
-    
+
     public function edit($id)
     {
         $admin = Admin::find($id);
@@ -96,7 +96,7 @@ class AdminController extends Controller
         return view('admin.pages.admins.edit',compact('admin', 'roles'));
     }
 
-    
+
     public function update(AdminRequest $request, $id)
     {
         // dd($request->all());
@@ -168,7 +168,7 @@ class AdminController extends Controller
             }
             Auth::user()->update($requestData);
             Session::flash('message-success', __('admin.messages.updated Successfully'));
-            return redirect()->back();    
+            return redirect()->back();
         }catch(\Exception $e){
             dd($e->getMessage());
             // return view('errors.500',compact('message'));
@@ -182,7 +182,7 @@ class AdminController extends Controller
 
     public function changeSetting(Request $request)
     {
-        $requestData = $request->all();
+         $requestData = $request->all();
         // dd($requestData);
         try{
             if(!isset($requestData['pay_on_delivery_enabled']))
@@ -194,9 +194,9 @@ class AdminController extends Controller
                     $logo->move(public_path('uploads/'),$imageName);
                     $value = '/uploads/'.$imageName;
                 }
-                \App\Setting::where('key',$key)->update(['value' => $value]);
+                \App\Setting::updateOrCreate(['key'=>$key],['value' => $value]);
             }
-            return redirect()->back()->with('message-success', __('admin.messages.updated Successfully')); 
+            return redirect()->back()->with('message-success', __('admin.messages.updated Successfully'));
         }catch(\Exception $e){
             return redirect()->back();
         }

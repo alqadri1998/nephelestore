@@ -28,7 +28,7 @@
                             <i class="icon-shopping-cart"></i>
                         </a> --}}
                     </div>
-                    <a data-slug="{{ $new->slug }}" href="#" class="btn-quickview" 
+                    <a data-slug="{{ $new->slug }}" href="#" class="btn-quickview"
                         title="{{ t('Quick View','site') }}">{{ t('Quick View','site') }}</a>
                 </figure>
                 <div class="product-details">
@@ -59,7 +59,7 @@
         </div>
         @endif
         @endforeach
-        
+
     </div>
 
     <hr class="mt-3 mb-6">
@@ -105,7 +105,7 @@
                     <h3 class="text-uppercase">{{ t('Free Shipping','site') }}</h3>
                     <h5>{{ t('Orders Over','site') }}99{{ t('SAR','site') }}</h5>
 
-                    
+
                 </div>
             </div>
         </div>

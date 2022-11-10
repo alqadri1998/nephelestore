@@ -73,6 +73,7 @@ class ProductController extends Controller
 
     public function create()
     {
+
         $categories = Category::where('active', true)->get();
 
         $productColors = ProductColor::get();
@@ -97,9 +98,12 @@ class ProductController extends Controller
         }
          $product = Product::createWithTranslations($requestData);
          $product->generateSlug();
+         $token = null ;
+         if ($store_shiping) {
 
+         $token = $this->api_token();
 
-
+         }
         if (isset($requestData['variants']) && count($requestData['variants']) > 0) {
             $length = count($requestData['variants']['color']);
             $quantity = $product->stock;
@@ -117,8 +121,11 @@ class ProductController extends Controller
                     $dataObject['category_id'] = $requestData['category_id'];
                     $newProduct = $product->replicate();
                     $newProduct->push();
+
                     $newProduct->update($dataObject);
-                    // $newProduct->generateSlug();
+                    $newProduct->generateSlug();
+                    $query = $this->createProductShipping($newProduct);
+                    $this->api( $newProduct , $query, $token);
                     $quantity += $dataObject['stock'];
                 }
             }
@@ -140,11 +147,10 @@ class ProductController extends Controller
                 $item =Product::find($product->id);
 
 
-                $token = $this->api_token();
 
                  $query = $this->createProductShipping($item);
                 //   $query = $this->acountInfo();
-            return       $resp =      $this->api($item, $query, $token);
+                   $resp =      $this->api($item, $query, $token);
                 // $resp = json_decode($resp, true);
 
                 DB::commit();
@@ -354,6 +360,66 @@ class ProductController extends Controller
     }
     public function createProductShipping($item)
     {
+    //     return  $query = 'mutation {
+    //     product_create(
+    //       data: {
+    //         name: "'.$item->name.'"
+    //         sku: "'.$item->slug.'"
+    //         price: "'.$item->price.'"
+    //         warehouse_products: {
+    //           warehouse_id: "14805"
+    //           on_hand: 0
+    //           inventory_bin: ""
+    //           reserve_inventory: 0
+    //           replenishment_level: 0
+    //           reorder_level: 0
+    //           reorder_amount: 0
+    //           custom: false
+    //         }
+    //         value: ""
+    //         barcode: ""
+    //         country_of_manufacture: "SA"
+    //         dimensions: { weight: "", height: "", width: "", length: "" }
+    //         kit: false
+    //         kit_build: false
+    //         no_air: false
+    //         final_sale: false
+    //         customs_value: "0.00"
+    //         not_owned: true
+    //         dropship: false
+    //       }
+    //     ) {
+    //       request_id
+    //       complexity
+    //       product {
+    //         id
+    //         legacy_id
+    //         account_id
+    //         name
+    //         sku
+    //         price
+    //         value
+    //         barcode
+    //         country_of_manufacture
+    //         dimensions {
+    //           weight
+    //           height
+    //           width
+    //           length
+    //         }
+    //         tariff_code
+    //         kit
+    //         kit_build
+    //         no_air
+    //         final_sale
+    //         customs_value
+    //         customs_description
+    //         not_owned
+    //         dropship
+    //         created_at
+    //       }
+    //     }
+    //   }';
         return  $query = 'mutation {
         product_create(
           data: {
@@ -362,7 +428,7 @@ class ProductController extends Controller
             price: "'.$item->price.'"
             warehouse_products: {
               warehouse_id: "14805"
-              on_hand: 0
+              on_hand: '. $item->stock .'
               inventory_bin: ""
               reserve_inventory: 0
               replenishment_level: 0
@@ -414,5 +480,32 @@ class ProductController extends Controller
           }
         }
       }';
+    }
+    public function updateProductInventory($item)
+    {
+
+        return  $query = '{
+            "account_id": 7556,
+            "account_uuid": "QWNjb3VudDo3NTU2",
+            "webhook_type": "Inventory Update",
+            "inventory": [
+                {
+                    "sku": "100100",
+                    "inventory": "37", // Use this value to update the quantities in the store
+                    "backorder_quantity": "1",
+                    "on_hand": "45",
+                    "virtual": false,
+                    "updated_warehouse": {
+                        "warehouse_id": 13841,
+                        "warehouse_uuid": "V2FyZWhvdXNlOjEzODQx",
+                        "identifier": "CA",
+                        "inventory": "35",// Use this value to update the quantities in the store
+
+                        "backorder_quantity": "0",
+                        "on_hand": "35"
+                    }
+                }
+            ]
+        }';
     }
 }

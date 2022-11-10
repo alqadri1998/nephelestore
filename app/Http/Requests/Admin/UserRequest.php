@@ -34,6 +34,10 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        if($this->excel){
+            return [  'excel' => 'file', ];
+        }
+
         if ($this->method_name == 'store') {
             return [
                 'name' => 'required',

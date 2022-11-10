@@ -12,15 +12,23 @@ use Illuminate\Http\Request;
 class ProductController extends Controller {
 
 	public function show($slug) {
-		$product = Product::whereSlug($slug)
+		 $product = Product::whereSlug($slug)
 			->with('media')
 			->with('category')
 			->firstOrFail();
 		// ->with('reviews')
+          $related = Product::where('active', 1)
+        ->where(function ($query) use ($product) {
+                    $query->where('category_id',$product->category_id)
+
+                    ;
+
+        })->take(24)->get();
+
 
 		// $product = parent::mapProductData($product, true);
 
-		return view('site.product', compact('product'));
+		return view('site.product', compact('product','related'));
 	}
 
 	public function quick_view(Request $request) {

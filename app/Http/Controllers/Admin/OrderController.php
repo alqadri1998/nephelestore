@@ -336,7 +336,7 @@ class OrderController extends Controller
     }
     public function createOrderShipping($order)
     {
-
+        $method = $order->shipping_method??'Ground';
         $query = 'mutation {
             order_create(
               data: {
@@ -352,7 +352,7 @@ class OrderController extends Controller
                   title: "UPS"
                   price: "' . $order->shipping_price . '"
                   carrier: "UPS"
-                  method: "Ground"
+                  method: "' . $method  . '"
                 }shipping_address: {
                   first_name: "' . $order->user->name . '"
                   last_name: "' . $order->user->name . '"

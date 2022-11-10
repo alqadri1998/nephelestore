@@ -62,12 +62,17 @@ class CheckOutController extends Controller
 
         $areas = City::whereNull('parent_id')->get();
         $vat = Setting::where('key', 'vat')->first()['value'] ?? 0;
+        $samsa = Setting::where('key', 'samsa')->first()['value'] ?? 0.00;
+        $aramix = Setting::where('key', 'aramix')->first()['value'] ?? 0.00;
+        $postage = Setting::where('key', 'postage')->first()['value'] ?? 0.00;
+        // $vat = Setting::where('key', 'shipping')->first()['value'] ?? 0;
 
-        $shipping = $this->getShippingPrice($subTotal);
+         $shipping = $this->getShippingPrice($subTotal);
+
 
         // dd($areas);
 
-        return view('site.checkout', compact('cartItems', 'subTotal', 'totalQuantity', 'cartID', 'authUser', 'coupon', 'settings', 'shipping', 'discount', 'areas', 'vat'));
+        return view('site.checkout', compact('cartItems', 'subTotal', 'totalQuantity','samsa','aramix','postage', 'cartID', 'authUser', 'coupon', 'settings', 'shipping', 'discount', 'areas', 'vat'));
     }
 
     public function getAreas($areaId)
@@ -320,10 +325,14 @@ class CheckOutController extends Controller
     //             ]
     //         )]
     //     );
-    return Http::withHeaders([
-        'Content-Type' => 'application/json',
-        'Authorization' => 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50SWQiOiJkYzIwYjdhNi03M2M0LTQwMGUtOTAwZS1kNjRmOTNlNzU1ZWMiLCJ0eXBlIjoibWVyY2hhbnQiLCJzYWx0IjoiOGY4MjU2NjZmZTg5NjM2NGJlY2UzOTA0NjA2ODczY2IiLCJpYXQiOjE2NDM2NDYwNTcsImlzcyI6IlRhbWFyYSJ9.OAsI3Oj7b80fifT3tGWmWedDKR-pKE3wIhs08IWGZh4jgLfiSGsaDx6q1frAKA6jsnjxqs2CKZoTwTMLSF3RoZ6j9cknsRLVY66NC6CnaT5GmaVtKnHdYajTRcZgIBQA_5qw0yCvUJnNIkvG1Q2mz3DQX8kl7KpTmUJY0IDEVXvrempgcfb1D2k7av2cLseBDym1mPUMppcyQ-pppfoezdsDW0NYWmJu7BmM9Zy64URFrjpCM4q0KKeM_HjM1HoF2PNwZmHue7S3z1XiF3MJudNeDwjpn9IcAcZhNhFk43NRruZYY3-_UcKdWi92tv2yIg4WToz1kdHSzUKYyyCxGQ'
-    ])->get('https://api-sandbox.tamara.co/checkout/payment-types',['country'=>'SA']);
+
+
+
+
+    // return Http::withHeaders([
+    //     'Content-Type' => 'application/json',
+    //     'Authorization' => 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50SWQiOiJkYzIwYjdhNi03M2M0LTQwMGUtOTAwZS1kNjRmOTNlNzU1ZWMiLCJ0eXBlIjoibWVyY2hhbnQiLCJzYWx0IjoiOGY4MjU2NjZmZTg5NjM2NGJlY2UzOTA0NjA2ODczY2IiLCJpYXQiOjE2NDM2NDYwNTcsImlzcyI6IlRhbWFyYSJ9.OAsI3Oj7b80fifT3tGWmWedDKR-pKE3wIhs08IWGZh4jgLfiSGsaDx6q1frAKA6jsnjxqs2CKZoTwTMLSF3RoZ6j9cknsRLVY66NC6CnaT5GmaVtKnHdYajTRcZgIBQA_5qw0yCvUJnNIkvG1Q2mz3DQX8kl7KpTmUJY0IDEVXvrempgcfb1D2k7av2cLseBDym1mPUMppcyQ-pppfoezdsDW0NYWmJu7BmM9Zy64URFrjpCM4q0KKeM_HjM1HoF2PNwZmHue7S3z1XiF3MJudNeDwjpn9IcAcZhNhFk43NRruZYY3-_UcKdWi92tv2yIg4WToz1kdHSzUKYyyCxGQ'
+    // ])->get('https://api-sandbox.tamara.co/checkout/payment-types',['country'=>'SA']);
 
         $authUser = null;
         if (Auth::user()) {
@@ -377,13 +386,13 @@ class CheckOutController extends Controller
         }
 
         /* Handle Shipping Fees */
-        $shipping = 0;
+        $shipping =  $request['type_shpping']?Setting::where('key',$request['type_shpping'])->first()['value'] ?? 0.00:0.00;
         $total = ($subTotal + $vatAmount + $shipping) - $discount;
 
         // create order
         $orderData = [
             'status' => 'pending',
-            'payment_method' => $request['payment_method'],
+            'shipping_method' => $request['type_shpping']??'Ground',
             'coupon_code' => $coupon_code,
             'coupon_id' => $coupon_id,
             'total_item_count' => $totalQuantity,
@@ -391,7 +400,7 @@ class CheckOutController extends Controller
             'vatAmount' => $vatAmount,
             'total' => $total,
             'discount' => $discount,
-            'shipping_price' => $this->getShippingPrice($subTotal),
+            'shipping_price' => $shipping,
             'user_id' => $authUser->id,
             'name' => $request['name'],
             'mobile' => $request['mobile'],

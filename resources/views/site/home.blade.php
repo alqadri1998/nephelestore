@@ -5,7 +5,7 @@
 @section('content')
 {{-- Slider --}}
 @include('site.includes.home.header_slider')
-{{-- End .home-slider --}} 
+{{-- End .home-slider --}}
 {{-- Shop By Category --}}
 @include('site.includes.home.shop_byCategory',['categories'=>$categories])
 {{-- End Shop By Category --}}
@@ -34,7 +34,7 @@
                 loop: true
               });
         });
-           
+
            // $('.header-slider-custom .play').on('click',function(){
            //      owl.trigger('play.owl.autoplay',[1000])
            //  })
