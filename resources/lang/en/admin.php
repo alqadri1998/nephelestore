@@ -55,7 +55,7 @@ return [
 		'updated Successfully'=>'updated Successfully',
 		'removed Successfull'=>'removed Successfull',
 		'removed Successfully'=>'removed Successfully',
-		
+
 	],
      'this data already exists'=>'his data already exists',
 	'categories'=>[
@@ -73,7 +73,7 @@ return [
 	'products'=>[
 		'index'=>'products',
 	],
-	
+
 	'pages'=>[
 		'index'=>'pages',
 	],
@@ -122,7 +122,7 @@ return [
 	'ar_title'=>'ar title',
 	'en_title'=>'en title',
 	'ar_discription'=>'ar discription',
-	
+
 	'en_discription'=>'en discription',
 	'Profile'=>'Profile',
 	'Sign Out'=>'Sign Out',
@@ -161,7 +161,7 @@ return [
 	'Next' => 'Next',
 	'coupon'=> 'coupon',
 	'value'=>'value',
-	'category'=>'category',	
+	'category'=>'category',
 	'categories_counts'=>'categories counts',
 	'site_name_ar'=>'site name ar',
 	'site_name_en'=>'site name en',
@@ -243,7 +243,7 @@ return [
 	'name'=>'name',
     'Profile'=>'Profile',
     'Logout'=>'Logout',
-    
+
     'Reports' => 'Reports',
     'status_active_deactive'=>'Status (Active/Inactive)',
 	'flow_category'=>'Flow Category',

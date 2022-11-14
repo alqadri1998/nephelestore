@@ -289,11 +289,17 @@ $wishList = Auth::check()
     </div>
     <!-- End .container -->
     <section class="container pb-3 mb-1">
+        @if ($status == 'related')
+
         <h2 class="section-title ls-n-15 text-center pb-2 m-b-4">{{ t('Related Products','site') }}</h2>
+        @else
+        <h2 class="section-title ls-n-15 text-center pb-2 m-b-4">{{ t('Package Products','site') }}</h2>
+
+        @endif
 
         <div class="owl-carousel cats-slider owl-theme show-nav-hover nav-outer appear-animate">
             @foreach($related as $new)
-            @if($new->getFirstMedia('thumb'))
+            @if($new->getFirstMedia('thumb')||$status != 'related')
             <div class="appear-animate" data-animation-name="fadeIn"
                 data-animation-delay="300" data-animation-duration="1000">
                 <div class="product-default inner-quickview inner-icon">

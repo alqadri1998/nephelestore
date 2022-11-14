@@ -38,6 +38,13 @@
                             <!--begin::Wizard Step 4 Nav images-->
                             <div class="wizard-step" data-wizard-type="step">
                                 @include('admin.includes.product_step', [
+                                    'title' => t('Product Package'),
+                                    'last' => false,
+                                    'icon' => 'wizard-icon flaticon2-delivery-package',
+                                ])
+                            </div>
+                            <div class="wizard-step" data-wizard-type="step">
+                                @include('admin.includes.product_step', [
                                     'title' => t('Product Images'),
                                     'last' => false,
                                     'icon' => 'wizard-icon flaticon2-photograph',
@@ -195,6 +202,47 @@
                                 </div>
                                 <div class="pb-5" data-wizard-type="step-content">
                                     <div class="form-group row">
+                                        <label style="width: 100%">{{ t('Package  Main Product') }}
+                                            <span style="color: #a70606;margin-right: 20px;"></span>
+                                        </label>
+
+                                        <span class="switch switch-lg">
+                                            <label>
+                                                <input type="checkbox" onclick="packageCheck()" name="main_package"
+                                                    id='main_package'
+                                                    @if (isset($item)) @if ($item->pag_id == 0)
+                                                                checked
+
+                                                                @else @endif
+                                                @else checked @endif
+                                                />
+                                                <span></span>
+                                            </label>
+                                        </span>
+
+                                    </div>
+                                    <div class="form-group row" id="sub_package">
+                                        <label style="width: 100%">{{ t('Package Sub Product ') }}
+                                            <span style="color: #a70606;margin-right: 20px;"></span>
+                                        </label>
+                                        <select class="form-control" name="sub_package">
+                                            <option value="">اختار</option>
+
+                                            @foreach ($products as $product)
+                                                <option
+                                                    value="{{ $product->id }}" @isset($item)
+                                                {{ $item->pag_id == $product->id ? 'selected' : '' }}
+                                            @endisset >
+                                                    {{ $product->name }} ({{ $product->slug ?? 'No Slug' }})</option>
+                                            @endforeach
+
+                                        </select>
+
+
+                                    </div>
+                                </div>
+                                <div class="pb-5" data-wizard-type="step-content">
+                                    <div class="form-group row">
                                         <label style="width: 100%">{{ t('Product Main Image') }}
                                             <span style="color: #a70606;margin-right: 20px;">(
                                                 {{ t('Preferred size', 'site') }} 300 * 300)</span>
@@ -242,8 +290,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @if(!isset($item))
-                                            <div class="col-6">
+                                        <div class="col-6">
+                                            @if (!isset($item))
                                                 <div class="form-group">
 
                                                     <label class="col-3 col-form-label">حفظ في شركه الشحن </label>
@@ -258,8 +306,8 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @endif
+                                        </div>
 
 
 

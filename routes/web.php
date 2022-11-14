@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //User Auth Routes
 Route::get('/config-cache', function() {
     $exitCode = Artisan::call('config:cache');
-    
+
     return '<h1>Clear Config cleared</h1>';
 });
 Auth::routes();

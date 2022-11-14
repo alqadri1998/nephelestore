@@ -2,7 +2,7 @@
 
 @section('head')
 	<style>
-		
+
 	</style>
 @endsection
 
@@ -34,11 +34,13 @@
 	<script src="{{url('assets/admin/js/pages/crud/forms/editors/summernote.js')}}"></script>
 	<script>
 		$(document).ready(function(){
+            $("#sub_package").hide();
+
 			$('body').on('click', '.btnDelete', function(e){
 				e.preventDefault();
 				$(this).parents('tr').remove();
 				KTWizard1.init();
-			});        
+			});
 
 			$('.btn-add-variant').click(function(e){
 				e.preventDefault();
@@ -48,8 +50,8 @@
 				$('#kt_advance_table_widget_1').append(row);
 				KTWizard1.init();
 				fixImages();
-			});    
-			
+			});
+
 			$('.btn-next').click(function(e){
 				$('#kt_select2_1, #kt_select2_2, #kt_select2_3, #kt_select2_4').select2({
 					placeholder: 'إختر'
@@ -135,5 +137,23 @@ function fixImages(){
 // 		}
 // 	}
 // }
+</script>
+<script>
+    function packageCheck() {
+        console.log(1);
+        if ($('#main_package').is(':checked')) {
+            console.log(2);
+
+            // $('#sub_package').css('display:none;')
+            $("#sub_package").hide();
+        } else {
+            console.log(3);
+    $("#sub_package").show();
+            console.log($('#sub_package'));
+            // $('#sub_package').css('display:block;')
+
+        }
+        console.log(4);
+    }
 </script>
 @endsection

@@ -75,35 +75,49 @@ class ProductController extends Controller
     {
 
         $categories = Category::where('active', true)->get();
+        $products = Product::where('active', true)->whereNull('parent_id')->where('pag_id', 0)->get();
 
         $productColors = ProductColor::get();
         $productSizes = ProductSize::get();
-        return view('admin.pages.products.create', compact('categories', 'productColors', 'productSizes'));
+        return view('admin.pages.products.create', compact('categories', 'productColors', 'productSizes', 'products'));
     }
+    // public function createPackage()
+    // {
+
+    //     // $products = Category::where('active', true)->get();
+
+    //     // $productColors = ProductColor::get();
+    //     // $productSizes = ProductSize::get();
+    //     // return view('admin.pages.products.create', compact('categories', 'productColors', 'productSizes'));
+    //     return view('admin.pages.products.createPackage');
+    // }
 
     public function store(ProductRequest $request)
     {
         // try{
-          $requestData = $request->all();
+        $requestData = $request->all();
 
         $requestData['active'] = isset($requestData['active']) ? 1 : 0;
         $requestData['new'] = isset($requestData['new']) ? 1 : 0;
         $requestData['featured'] = isset($requestData['featured']) ? 1 : 0;
+        $mainPack =  $requestData['pag_id'] = isset($requestData['main_package']) ? 0 : 1;
         $store_shiping = isset($requestData['shipping_store']) ? 1 : 0;
         if (!isset($requestData['stock']) || is_null($requestData['stock'])) {
             $requestData['stock'] = 0;
         }
+        if (isset($requestData['sub_package']) &&  $mainPack) {
+            $requestData['pag_id'] = isset($requestData['sub_package']) ? $requestData['sub_package'] : 0;
+        }
         if (isset($requestData['stock']) && !empty($requestData['stock']) && isset($requestData['variants']) && !empty($requestData['variants']['size'][0])) {
             return redirect()->back()->with('message-error', 'لا يمكن وضع مخزون للمنتج الرئيسي في وجود مقاسات له');
         }
-         $product = Product::createWithTranslations($requestData);
-         $product->generateSlug();
-         $token = null ;
-         if ($store_shiping) {
+        $product = Product::createWithTranslations($requestData);
+        $product->generateSlug();
+        $token = null;
+        if ($store_shiping) {
 
-         $token = $this->api_token();
-
-         }
+            $token = $this->api_token();
+        }
         if (isset($requestData['variants']) && count($requestData['variants']) > 0) {
             $length = count($requestData['variants']['color']);
             $quantity = $product->stock;
@@ -125,7 +139,7 @@ class ProductController extends Controller
                     $newProduct->update($dataObject);
                     $newProduct->generateSlug();
                     $query = $this->createProductShipping($newProduct);
-                    $this->api( $newProduct , $query, $token);
+                    $this->api($newProduct, $query, $token);
                     $quantity += $dataObject['stock'];
                 }
             }
@@ -144,13 +158,13 @@ class ProductController extends Controller
         if ($store_shiping) {
             DB::beginTransaction();
             try {
-                $item =Product::find($product->id);
+                $item = Product::find($product->id);
 
 
 
-                 $query = $this->createProductShipping($item);
+                $query = $this->createProductShipping($item);
                 //   $query = $this->acountInfo();
-                   $resp =      $this->api($item, $query, $token);
+                $resp =      $this->api($item, $query, $token);
                 // $resp = json_decode($resp, true);
 
                 DB::commit();
@@ -185,8 +199,9 @@ class ProductController extends Controller
         $categories = Category::where('active', true)->get();
         $productColors = ProductColor::get();
         $productSizes = ProductSize::get();
+        $products = Product::where('active', true)->whereNull('parent_id')->where('pag_id', 0)->get();
         // dd($item);
-        return view('admin.pages.products.edit', compact('item', 'categories', 'productColors', 'productSizes'));
+        return view('admin.pages.products.edit', compact('item', 'products', 'categories', 'productColors', 'productSizes'));
     }
 
     public function update(ProductRequest $request, $id)
@@ -197,9 +212,12 @@ class ProductController extends Controller
         $requestData['new'] = isset($requestData['new']) ? 1 : 0;
         $requestData['featured'] = isset($requestData['featured']) ? 1 : 0;
         // dd($requestData);
-
-        $product = Product::find($id);
-        $product->updateWithTranslations($requestData);
+        $mainPack =  $requestData['pag_id'] = isset($requestData['main_package']) ? 0 : 1;
+        if (isset($requestData['sub_package']) &&  $mainPack) {
+             $requestData['pag_id'] = isset($requestData['sub_package']) ? $requestData['sub_package'] : 0;
+        }
+             $product = Product::find($id);
+           $product->updateWithTranslations($requestData);
 
         if (isset($requestData['variants']) && count($requestData['variants']) > 0) {
             $length = count($requestData['variants']['color']);
@@ -360,75 +378,75 @@ class ProductController extends Controller
     }
     public function createProductShipping($item)
     {
-    //     return  $query = 'mutation {
-    //     product_create(
-    //       data: {
-    //         name: "'.$item->name.'"
-    //         sku: "'.$item->slug.'"
-    //         price: "'.$item->price.'"
-    //         warehouse_products: {
-    //           warehouse_id: "14805"
-    //           on_hand: 0
-    //           inventory_bin: ""
-    //           reserve_inventory: 0
-    //           replenishment_level: 0
-    //           reorder_level: 0
-    //           reorder_amount: 0
-    //           custom: false
-    //         }
-    //         value: ""
-    //         barcode: ""
-    //         country_of_manufacture: "SA"
-    //         dimensions: { weight: "", height: "", width: "", length: "" }
-    //         kit: false
-    //         kit_build: false
-    //         no_air: false
-    //         final_sale: false
-    //         customs_value: "0.00"
-    //         not_owned: true
-    //         dropship: false
-    //       }
-    //     ) {
-    //       request_id
-    //       complexity
-    //       product {
-    //         id
-    //         legacy_id
-    //         account_id
-    //         name
-    //         sku
-    //         price
-    //         value
-    //         barcode
-    //         country_of_manufacture
-    //         dimensions {
-    //           weight
-    //           height
-    //           width
-    //           length
-    //         }
-    //         tariff_code
-    //         kit
-    //         kit_build
-    //         no_air
-    //         final_sale
-    //         customs_value
-    //         customs_description
-    //         not_owned
-    //         dropship
-    //         created_at
-    //       }
-    //     }
-    //   }';
+        //     return  $query = 'mutation {
+        //     product_create(
+        //       data: {
+        //         name: "'.$item->name.'"
+        //         sku: "'.$item->slug.'"
+        //         price: "'.$item->price.'"
+        //         warehouse_products: {
+        //           warehouse_id: "14805"
+        //           on_hand: 0
+        //           inventory_bin: ""
+        //           reserve_inventory: 0
+        //           replenishment_level: 0
+        //           reorder_level: 0
+        //           reorder_amount: 0
+        //           custom: false
+        //         }
+        //         value: ""
+        //         barcode: ""
+        //         country_of_manufacture: "SA"
+        //         dimensions: { weight: "", height: "", width: "", length: "" }
+        //         kit: false
+        //         kit_build: false
+        //         no_air: false
+        //         final_sale: false
+        //         customs_value: "0.00"
+        //         not_owned: true
+        //         dropship: false
+        //       }
+        //     ) {
+        //       request_id
+        //       complexity
+        //       product {
+        //         id
+        //         legacy_id
+        //         account_id
+        //         name
+        //         sku
+        //         price
+        //         value
+        //         barcode
+        //         country_of_manufacture
+        //         dimensions {
+        //           weight
+        //           height
+        //           width
+        //           length
+        //         }
+        //         tariff_code
+        //         kit
+        //         kit_build
+        //         no_air
+        //         final_sale
+        //         customs_value
+        //         customs_description
+        //         not_owned
+        //         dropship
+        //         created_at
+        //       }
+        //     }
+        //   }';
         return  $query = 'mutation {
         product_create(
           data: {
-            name: "'.$item->name.'"
-            sku: "'.$item->slug.'"
-            price: "'.$item->price.'"
+            name: "' . $item->name . '"
+            sku: "' . $item->slug . '"
+            price: "' . $item->price . '"
             warehouse_products: {
               warehouse_id: "14805"
-              on_hand: '. $item->stock .'
+              on_hand: ' . $item->stock . '
               inventory_bin: ""
               reserve_inventory: 0
               replenishment_level: 0

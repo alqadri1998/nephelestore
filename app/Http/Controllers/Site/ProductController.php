@@ -17,23 +17,32 @@ class ProductController extends Controller {
 			->with('category')
 			->firstOrFail();
 		// ->with('reviews')
-          $related = Product::where('active', 1)
-        ->where(function ($query) use ($product) {
-                    $query->where('category_id',$product->category_id)
+         $item = Product::where('pag_id',$product->id)->get();
+        if(sizeof($item) > 0 ){
+             $related = $item ;
+			$status = 'package';
 
-                    ;
+        }else{
+            $related = Product::where('active', 1)
+            ->where(function ($query) use ($product) {
+                        $query->where('category_id',$product->category_id)
+                        ;
 
-        })->take(24)->get();
+            })->take(24)->get();
+			$status = 'related';
+
+        }
+
 
 
 		// $product = parent::mapProductData($product, true);
 
-		return view('site.product', compact('product','related'));
+		return view('site.product', compact('product','related','status'));
 	}
 
 	public function quick_view(Request $request) {
 		if (isset($request->slug)) {
-			$product = Product::whereNull('parent_id')->whereSlug($request->slug)->where('active', true)
+			$product = Product::whereNull('parent_id')->whereSlug($request->slug)->where('active', true)->where('pag_id',0)
 				->with('media')
 				->with('category')
 				->with('reviews')

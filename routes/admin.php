@@ -35,7 +35,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
 		//Admins Routes
 		Route::resource('admins', 'AdminController');
 		Route::resource('carts', 'LeftCartController');
-		
+
 		//categories Routes
 		Route::resource('categories', 'CategoryController');
 

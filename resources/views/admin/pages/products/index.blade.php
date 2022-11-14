@@ -29,7 +29,7 @@
 		<!--end::Header-->
 		<!--begin::Body-->
 		<div class="card-body py-0">
-			
+
 			@include('admin.includes.search')
 			<div style="margin: 20px">
 				<hr>
@@ -54,10 +54,10 @@
 								<label>{{ t('Status') }}</label>
 								<select class="form-control select2" id="kt_select2_2" name="status">
 									<option value="">{{t('all')}}</option>
-									
+
 									<option value="active" {{ isset($_GET['status']) &&  $_GET['status'] == 'active' ? 'selected' : '' }}>{{ t('Active') }}</option>
 									<option value="{{ 'inactive' }}" {{ isset($_GET['status']) &&  $_GET['status'] == 'inactive' ? 'selected' : '' }}>{{ t('Inactive') }}</option>
-								
+
 								</select>
 							</div>
 						</div>
@@ -73,7 +73,7 @@
 								<input type="text" class="form-control" id="kt_datepicker_2"  name="date_to" value="{{ isset($_GET['date_to']) ? $_GET['date_to'] : ''}}" />
 							</div>
 						</div>
-						
+
 					</div>
 					<div class="row">
 						<div class="col-md-12 text-center">
@@ -100,7 +100,7 @@
 							<th style="text-align: center;">{{ t('Special Price') }}</th>
 							<th style="text-align: center;">{{ t('Stock') }}</th>
 							<th style="text-align: center;">{{ __('admin.status') }}</th>
-							
+
 							<th style="text-align: center;">{{ __('admin.Options') }}</th>
 						</tr>
 					</thead>
@@ -136,12 +136,12 @@
 							<td style="text-align: center;">
 								{{ $item->stock }}
 							</td>
-							
+
 							<td style="text-align: center;">
 								{{ $item->active ? __('admin.active') : __('admin.inactive') }}
 							</td>
-							
-							
+
+
 						<td style="text-align: center;">
 								{{-- 'show'      => route('admin.products.show', $item->id), --}}
 							@include('admin.includes.actions', [

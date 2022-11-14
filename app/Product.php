@@ -34,6 +34,8 @@ class Product extends Model implements TranslatableContract, HasMedia {
 		'parent_id',
 		'weight',
 		'featured',
+        //product_id with package
+        'pag_id'
 	];
 	public $translatedAttributes = [
 		'name',

@@ -324,6 +324,8 @@ return [
 	'Password Confirm' => 'تأكيد كلمة المرور',
 	'Shop By Category' => 'تسوق من خلال الأقسام',
 	'New Products' => 'منتجاتنا الجديدة',
+	'Related Products' => 'منتجاتنا المتشابه',
+	'Package Products' => 'منتجات الحزمة',
 	'Product' => 'المنتج',
 	'Size' => 'المقاس',
 	'Color' => 'اللون',

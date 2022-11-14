@@ -16,7 +16,7 @@ class PageController extends Controller
     public function contact()
     {
         $setting = \App\Setting::pluck('value','key')->toArray();
-        
+
         return view('site.pages.contact',compact('setting'));
     }
 
@@ -45,7 +45,7 @@ class PageController extends Controller
 
     public function shop(Request $request)
     {
-        $items = Product::whereNull('parent_id')->where('active',true)->with('category');
+        $items = Product::whereNull('parent_id')->where('active',true)->with('category')->where('pag_id',0);
         // filters goes here
         $currentCategory = null;
         if (isset($request->category)) {
@@ -59,7 +59,7 @@ class PageController extends Controller
             $keyword = request('keyword');
             $items->whereTranslationLike('name', '%'.$keyword.'%');
         }
-    
+
 
 
         // $per_page = 50;
