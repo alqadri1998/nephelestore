@@ -13,11 +13,15 @@ use Session;
 
 class HomeController extends Controller {
 	public function index(Request $request) {
-		$newProducts = Product::whereNull('parent_id')->where('pag_id',0)->where('active', 1)->where('featured', 1)->get();
-		$categories = Category::where('active', 1)->whereNull('parent_id')->with('products')->orderBy('id', 'DESC')->get();
-		$sales = Product::whereNull('parent_id')->where('pag_id',0)->where('active', 1)->where('new', true)->get();
+		$sales = Product::whereNull('parent_id')->where('pag_id',0)->where('active', 1)->where('featured', 1)->get();
+	 	  $categories = Category::where('active', 1)->whereNull('parent_id')->with(
+            ['products'=>function ($q){
+               return  $q->whereNotNull('slug')->where('pag_id',0);
+          }])->orderBy('id', 'DESC')->get();
+		// $newProducts = Product::whereNull('parent_id')->where('pag_id',0)->where('active', 1)->where('new', true)->get();
 		$homeSlider = SliderItem::where('active', 1)->get();
-		return view('site.home', compact('newProducts', 'categories', 'sales', 'homeSlider'));
+		// return view('site.home', compact('newProducts', 'categories', 'sales', 'homeSlider'));
+		return view('site.home', compact( 'categories', 'sales', 'homeSlider'));
 	}
 
 	public function changeLang($locale) {

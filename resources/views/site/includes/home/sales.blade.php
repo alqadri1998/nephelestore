@@ -1,6 +1,5 @@
 <section class="container pb-3 mb-1">
-    <h2 class="section-title ls-n-15 text-center pb-2 m-b-4">{{ t('New','site') }}</h2>
-
+    <h2 class="section-title ls-n-15 text-center pb-2 m-b-4">{{ t('Featured Products','site') }}</h2>
     <div class="owl-carousel cats-slider owl-theme show-nav-hover nav-outer appear-animate">
         @foreach($sales as $sale)
         @if($sale->getFirstMedia('thumb'))
@@ -28,7 +27,7 @@
                             <i class="icon-shopping-cart"></i>
                         </a> --}}
                     </div>
-                    <a data-slug="{{ $sale->slug }}" href="#" class="btn-quickview" 
+                    <a data-slug="{{ $sale->slug }}" href="#" class="btn-quickview"
                         title="{{ t('Quick View','site') }}">{{ t('Quick View','site') }}</a>
                 </figure>
                 <div class="product-details">
@@ -59,7 +58,7 @@
         </div>
         @endif
         @endforeach
-        
+
     </div>
 
     <hr class="mt-3 mb-6">

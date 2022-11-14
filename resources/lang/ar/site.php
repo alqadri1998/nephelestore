@@ -334,6 +334,7 @@ return [
 	'Update Cart' => 'تحديث السلة',
 	'CART TOTALS' => 'اجمالي السله',
 	'Shipping' => 'الشحن',
+	'Fast Shipping' => ' الشحن السريع',
 	'Proceed to Checkout' => 'اكمال عملية الدفع',
 	'Cant exceed stock quantity' => 'الكمية المطلوبه اكبر من المخزون',
 ];

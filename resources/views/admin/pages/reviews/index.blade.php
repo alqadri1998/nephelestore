@@ -54,7 +54,7 @@
                                 {{ $index+1 }}
                             </td>
                             <td style="text-align: center;">
-                                {{ $item->user->name }}
+                                {{ $item->user?$item->user->name:'User Deleted' }}
                             </td>
                             <td style="text-align: center;">
                                 @if (isset($item->product->parent))

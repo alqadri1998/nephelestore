@@ -4,10 +4,10 @@
     <div class="owl-carousel owl-theme nav-image-center show-nav-hover nav-outer cats-slider">
         @foreach($categories as $cat)
         <div class="product-category">
-            <a href="{{ url('/shop/products?category='.$cat->slug) }}">
+            <a  href="{{ url('/shop/products?category='.$cat->slug) }}">
                 <figure>
-                    <img src="{{ $cat->getFirstMedia('thumb') ? $cat->getFirstMedia('thumb')->getFullUrl() : '' }}" width="273" height="273"
-                        alt="{{ $cat->name }}" />
+                    <img style=" width: 100px ; margin: auto; " src="{{ $cat->getFirstMedia('thumb') ? $cat->getFirstMedia('thumb')->getFullUrl() : '' }}"
+                      alt="{{ $cat->name }}" />
                 </figure>
                 <div class="category-content">
                     <h3>{{ $cat->name }}</h3>
