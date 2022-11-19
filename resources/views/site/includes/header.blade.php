@@ -6,6 +6,29 @@
     @else
     <title>{{ $settings['site_name_en'] ?? 'Nephele' }} @yield('title')</title>
     @endif
+    @isset($settings)
+    @isset($settings['snapchat_pixel'])
+    {!! $settings['snapchat_pixel'] !!}
+
+    @endisset
+    @isset($settings['facebook_pixel'])
+    {!! $settings['facebook_pixel'] !!}
+
+    @endisset
+    @isset($settings['tiktok_picel'])
+    {!! $settings['tiktok_picel'] !!}
+
+    @endisset
+    @isset($settings['hotjar'])
+    {!! $settings['hotjar'] !!}
+
+    @endisset
+    @isset($settings['google_analytics'])
+    {!! $settings['google_analytics'] !!}
+
+    @endisset
+
+    @endisset
      <meta name="csrf-token" content="{{ csrf_token() }}" />
      <meta name="keywords" content="{{ $settings['site_key_words'] ? implode(',', (array_column((json_decode($settings['site_key_words'])), 'value'))) : '' }}" />
      @if(app()->getLocale() == 'ar')

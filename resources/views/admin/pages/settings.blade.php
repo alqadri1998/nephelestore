@@ -95,10 +95,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="twitter_link">{{ t('Shipping') }} XXXXXXXXX</label>
-                                    <div class="form-control">
-                                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                    </div>
+                                    <label for="twitter_link">{{ t('Default') }}</label>
+                                    <input type="number" class="form-control" id="default" name="default_shipping"
+                                        value="{{ old('default_shipping') ?? (isset($settings['default_shipping']) ? $settings['default_shipping'] : '') }}">
                                 </div>
                             </div>
 
@@ -155,17 +154,55 @@
                                 <textarea name="site_description_en" class="form-control" rows="8">{{ old('site_description_en') ?? (isset($settings['site_description_en']) ? $settings['site_description_en'] : '') }}</textarea>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="kt_tagify_1">{{ t('Key Words') }}</label>
+                            <input id="kt_tagify_1" class="form-control tagify" name='site_key_words'
+                                value="{{ old('site_key_words') ?? (isset($settings['site_key_words']) ? $settings['site_key_words'] : '') }}" />
+                        </div>
+                        {{-- headers --}}
+                        <hr>
+                        <h2>  الجزء الخاص بالحملات الاعلانية  &  Integrations(Head)</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="site_description_ar">SnapChat Pixel</label>
+                                <textarea name="snapchat_pixel" class="form-control" rows="8">{{ old('snapchat_pixel') ?? (isset($settings['snapchat_pixel']) ? $settings['snapchat_pixel'] : '') }}</textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="site_description_ar">FaceBook Pixel (Meta)</label>
+                                <textarea name="facebook_pixel" class="form-control" rows="8">{{ old('facebook_pixel') ?? (isset($settings['facebook_pixel']) ? $settings['facebook_pixel'] : '') }}</textarea>
+                            </div>
+                            <div class="col-md-6 pt-3">
+                                <label for="site_description_ar">TikTok Pixel</label>
+                                <textarea name="tiktok_pixel" class="form-control" rows="8">{{ old('tiktok_pixel') ?? (isset($settings['tiktok_pixel']) ? $settings['tiktok_pixel'] : '') }}</textarea>
+                            </div>
+                            <div class="col-md-12 pt-3">
+                                <label for="site_description_ar">HotJar (Visitor)</label>
+                                <textarea name="hotjar" class="form-control" rows="8">{{ old('hotjar') ?? (isset($settings['hotjar']) ? $settings['hotjar'] : '') }}</textarea>
+                            </div>
+                            <div class="col-md-6 pt-3">
+                                <label for="site_description_ar">Google Analytics</label>
+                                <textarea name="google_analytics" class="form-control" rows="8">{{ old('google_analytics') ?? (isset($settings['google_analytics']) ? $settings['google_analytics'] : '') }}</textarea>
+                            </div>
+                            <div class="col-md-6 pt-3">
+                                <label for="site_description_ar">Google Analytics (file)</label>
+                                <input type="file" class="form-control  " style="margin-top: 80px ; border-top-style: hidden;
+                                border-right-style: hidden;
+                                border-left-style: hidden;
+                                border-bottom-style: hidden;
+                                "  name="google_file" >
+
+                            </div>
+
+
+                        </div>
                         <!--/row-->
 
 
                         {{-- site_description_ar site_description_en --}}
 
                         {{-- site_key_words --}}
-                        <div class="form-group">
-                            <label for="kt_tagify_1">{{ t('Key Words') }}</label>
-                            <input id="kt_tagify_1" class="form-control tagify" name='site_key_words'
-                                value="{{ old('site_key_words') ?? (isset($settings['site_key_words']) ? $settings['site_key_words'] : '') }}" />
-                        </div>
+                        <hr> <hr>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">

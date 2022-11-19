@@ -112,7 +112,7 @@ class OrderController extends Controller
 
     public function change_status($order_id, $status)
     {
-        $order = Order::with('products', 'user', 'city')->whereId($order_id)->first();
+         $order = Order::with('products', 'user', 'city')->whereId($order_id)->first();
 
 
 

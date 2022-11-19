@@ -194,6 +194,13 @@ class AdminController extends Controller
                     $logo->move(public_path('uploads/'),$imageName);
                     $value = '/uploads/'.$imageName;
                 }
+                if($key == 'google_file' && isset($requestData[$key])){
+                    $logo = $request->google_file;
+                    $imageName = $logo->getClientOriginalExtension();
+                    $logo->move(public_path('/'),$imageName);
+                    $value = '/'.$imageName;
+                }
+
                 \App\Setting::updateOrCreate(['key'=>$key],['value' => $value]);
             }
             return redirect()->back()->with('message-success', __('admin.messages.updated Successfully'));

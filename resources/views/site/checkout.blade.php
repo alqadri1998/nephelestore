@@ -310,7 +310,7 @@
                                             <div class="select-custom ">
 
                                                 <select id="shipping" class="form-control required">
-                                                    <option value="" selected disabled> </option>
+                                                    <option value="default_shipping" selected >Default </option>
                                                     {{-- <option value="{{ isset($samsa)?$samsa:0.00 }}" data-ship ="samsa" > SAMSA </option>
                                                 <option value="{{ isset($aramix)?$aramix:0.00 }}"> ARAMIX </option>
                                                 <option value="{{ isset($postage)?$postage:0.00 }}"> POSTAGE </option> --}}
@@ -331,7 +331,8 @@
                                             <h4>{{ t('Shipping', 'site') }}</h4>
                                         </td>
                                         <td class="price-col" id="getShippingval">
-                                            <span>{{ number_format($shipping, 2) . ' ' . t('SAR', 'site') }}</span> </td>
+                                            <span>{{ number_format( $default_shipping , 2) . ' ' . t('SAR', 'site') }}</span>
+                                        </td>
 
 
 
@@ -440,28 +441,34 @@
 
             });
             $(document).ready(function() {
+
+
                 $('#shipping').change(function() {
                     var val = $('#shipping').val();
                     if (val != "") {
-                        if (val = 'samsa') {
+                        console.log(val);
+                        if (val == 'samsa') {
 
                             $('#type_shpping').val('samsa');
                             $('#getShippingval').html("<span>" + {{ $samsa }} +
                                 "{{ t('SAR', 'site') }}" + "</span>");
-                        }
 
-                        if (val = 'postage') {
+                        } else if (val == 'postage') {
                             $('#type_shpping').val('postage');
 
                             $('#getShippingval').html("<span>" + {{ $postage }} +
                                 "{{ t('SAR', 'site') }}" + "</span>");
-                        }
-
-                        if (val = 'aramix') {
-                            $('#type_shpping').val('aramix');
+                            } else if (val == 'aramix') {
+                                $('#type_shpping').val('aramix');
 
                             $('#getShippingval').html("<span>" + {{ $aramix }} +
                                 "{{ t('SAR', 'site') }}" + "</span>");
+                            }else{
+                            $('#type_shpping').val('default_shipping');
+
+                        $('#getShippingval').html("<span>" + {{ $default_shipping }} +
+                            "{{ t('SAR', 'site') }}" + "</span>");
+
                         }
                     }
 

@@ -61,10 +61,12 @@ class CheckOutController extends Controller
         }
 
         $areas = City::whereNull('parent_id')->get();
-        $vat = Setting::where('key', 'vat')->first()['value'] ?? 0;
-        $samsa = Setting::where('key', 'samsa')->first()['value'] ?? 0.00;
-        $aramix = Setting::where('key', 'aramix')->first()['value'] ?? 0.00;
-        $postage = Setting::where('key', 'postage')->first()['value'] ?? 0.00;
+        $setting = Setting::get();
+        $vat =$setting->where('key', 'vat')->first()['value'] ?? 0;
+        $samsa = $setting->where('key', 'samsa')->first()['value'] ?? 0.00;
+        $aramix = $setting->where('key', 'aramix')->first()['value'] ?? 0.00;
+        $postage = $setting->where('key', 'postage')->first()['value'] ?? 0.00;
+        $default_shipping = $setting->where('key', 'default_shipping')->first()['value'] ?? 0.00;
         // $vat = Setting::where('key', 'shipping')->first()['value'] ?? 0;
 
          $shipping = $this->getShippingPrice($subTotal);
@@ -72,7 +74,7 @@ class CheckOutController extends Controller
 
         // dd($areas);
 
-        return view('site.checkout', compact('cartItems', 'subTotal', 'totalQuantity','samsa','aramix','postage', 'cartID', 'authUser', 'coupon', 'settings', 'shipping', 'discount', 'areas', 'vat'));
+        return view('site.checkout', compact('cartItems', 'subTotal', 'totalQuantity','samsa','aramix','postage','default_shipping', 'cartID', 'authUser', 'coupon', 'settings', 'shipping', 'discount', 'areas', 'vat'));
     }
 
     public function getAreas($areaId)
@@ -384,15 +386,20 @@ class CheckOutController extends Controller
                 $coupon_code = null;
             }
         }
-
         /* Handle Shipping Fees */
         $shipping =  $request['type_shpping']?Setting::where('key',$request['type_shpping'])->first()['value'] ?? 0.00:0.00;
         $total = ($subTotal + $vatAmount + $shipping) - $discount;
 
+        if($request['payment_method'] == 'pay_on_delivery'){
+            $method = $request['type_shpping'] ." "."COD";
+        }else{
+
+            $method = $request['type_shpping'] ." "."CC";
+        }
         // create order
-        $orderData = [
+          $orderData = [
             'status' => 'pending',
-            'shipping_method' => $request['type_shpping']??'Ground',
+            'shipping_method' => $request['type_shpping']?$method :'Ground',
             'coupon_code' => $coupon_code,
             'coupon_id' => $coupon_id,
             'total_item_count' => $totalQuantity,
@@ -409,7 +416,7 @@ class CheckOutController extends Controller
             'street_address' => $request['street_address'],
             'payment_method' => $request['payment_method'],
         ];
-        $createdOrder = Order::create($orderData);
+         $createdOrder = Order::create($orderData);
         $createdOrder->createOrderID();
 
         // set order products

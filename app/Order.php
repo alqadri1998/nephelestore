@@ -38,7 +38,8 @@ class Order extends Model
         'card_security_code',
         'paid',
         'vatAmount',
-        'total_weight'
+        'total_weight',
+        'shipping_method'
 
     ];
 
