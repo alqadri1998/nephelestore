@@ -14,6 +14,8 @@ use App\ProductSize;
 // use App\ProductSizeRelation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Rap2hpoutre\FastExcel\Facades\FastExcel;
+use Rap2hpoutre\FastExcel\FastExcel as FastExcelFastExcel;
 
 class ProductController extends Controller
 {
@@ -192,6 +194,18 @@ class ProductController extends Controller
 
         return view('admin.pages.products.show', compact('item'));
     }
+    public function excel()
+    {
+        $product = Product::get()->map(function ($q){
+            return [
+                'id'=>$q->id,
+                'name_arabic'=>$q->translate('ar')->name,
+                'name_english'=>$q->translate('en')->name,
+                'slug'=>$q->slug,
+            ];
+        });
+      return    (new FastExcelFastExcel($product))->download('products.xlsx');
+    }
 
     public function edit($id)
     {
@@ -203,6 +217,7 @@ class ProductController extends Controller
         // dd($item);
         return view('admin.pages.products.edit', compact('item', 'products', 'categories', 'productColors', 'productSizes'));
     }
+
 
     public function update(ProductRequest $request, $id)
     {

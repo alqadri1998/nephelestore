@@ -24,6 +24,8 @@
 				<a href="{{ route('admin.products.create') }}" class="btn btn-success font-weight-bolder font-size-md">
 				{{ __('admin.create') }}</a>
 				@endif
+				<a style="margin-right: 20px" href="{{ route('admin.excel') }}" class="btn btn-success font-weight-bolder font-size-md">
+				Excel</a>
 			</div>
 		</div>
 		<!--end::Header-->

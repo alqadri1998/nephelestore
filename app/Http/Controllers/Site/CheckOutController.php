@@ -501,19 +501,21 @@ class CheckOutController extends Controller
     }
     public function thankyou(Request $request, $orderId)
     {
-        $createdOrder = Order::whereId($orderId)->first();
+           $createdOrder = Order::whereId($orderId)->first();
 
         $paymentStatus = true;
         if (isset($request['id'])) {
-            $payment_id = $request['id'];
-            try {
+              $payment_id = $request['id'];
+              try {
                 $payment = \Moyasar\Facades\Payment::fetch($payment_id);
             } catch (\Exception $e) {
+                $order = $createdOrder ;
+                $status = 'error' ;
+                return view('site.payment', compact('order' , 'status'));
+
                 $payment = null;
             }
-
             if ($payment) {
-
                 if ($payment->status === 'paid' && $payment->amount == ($createdOrder->total) * 100) {
 
                     // Success payment

@@ -6,7 +6,7 @@
         <div class="product-category">
             <a  href="{{ url('/shop/products?category='.$cat->slug) }}">
                 <figure>
-                    <img style=" width: 100px ; margin: auto; " src="{{ $cat->getFirstMedia('thumb') ? $cat->getFirstMedia('thumb')->getFullUrl() : '' }}"
+                    <img style=" width: 200px ; margin: auto; " src="{{ $cat->getFirstMedia('thumb') ? $cat->getFirstMedia('thumb')->getFullUrl() : '' }}"
                       alt="{{ $cat->name }}" />
                 </figure>
                 <div class="category-content">

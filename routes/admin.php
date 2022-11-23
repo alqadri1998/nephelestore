@@ -45,6 +45,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
     	// products Routes
 		Route::resource('products', 'ProductController');
 		Route::get('reviews/products', 'ProductController@product_reviews')->name('reviews');
+		Route::get('reviews/excel', 'ProductController@excel')->name('excel');
 		 Route::get('/reviews/{id}/active', 'ProductController@reviews_active')->name('reviews_active');
 		//pages
 		Route::resource('pages', 'PageController');

@@ -1,10 +1,12 @@
 <section class="container pb-3 mb-1">
     <h2 class="section-title ls-n-15 text-center pb-2 m-b-4">{{ t('Featured Products','site') }}</h2>
-    <div class="owl-carousel cats-slider owl-theme show-nav-hover nav-outer appear-animate">
+    {{-- <div class="owl-carousel cats-slider owl-theme show-nav-hover nav-outer appear-animate"> --}}
+        <div class="row">
         @foreach($sales as $sale)
         @if($sale->getFirstMedia('thumb'))
-        <div class=" appear-animate" data-animation-name="fadeIn"
-            data-animation-delay="300" data-animation-duration="1000">
+        {{-- <div class=" appear-animate" data-animation-name="fadeIn"
+            data-animation-delay="300" data-animation-duration="1000"> --}}
+            <div class="col-md-3">
             <div class="product-default inner-quickview inner-icon">
                 <figure>
                     <a href="{{ route('product.show', $sale->slug) }}">
