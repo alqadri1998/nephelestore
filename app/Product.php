@@ -43,6 +43,7 @@ class Product extends Model implements TranslatableContract, HasMedia {
 		// 'description_more'
 	];
 	public $hidden = ['translations', 'media'];
+    protected $appends=['is_pag'];
 
 	public function category() {
 		return $this->belongsTo(Category::class, 'category_id');
@@ -80,6 +81,10 @@ class Product extends Model implements TranslatableContract, HasMedia {
 		return $this->hasMany(ProductReview::class, 'product_id');
 	}
 
+	public function getIsPagAttribute()
+	{
+		return sizeof($this->pag)>0;
+	}
 	// public function getMinPriceAttribute()
 	// {
 	// 	return $this->variants()->min('price');
@@ -109,6 +114,9 @@ class Product extends Model implements TranslatableContract, HasMedia {
 
 	public function parent() {
 		return $this->belongsTo(Product::class, 'parent_id');
+	}
+	public function pag() {
+		return $this->hasMany(Product::class, 'pag_id','id');
 	}
 
 	public function getVariants() {

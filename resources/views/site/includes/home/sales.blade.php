@@ -1,5 +1,12 @@
 <section class="container pb-3 mb-1">
-    <h2 class="section-title ls-n-15 text-center pb-2 m-b-4">{{ t('Featured Products','site') }}</h2>
+    <div class="row">
+        <h2 class="col-md-3 section-title ls-n-15 text-center pb-2 m-b-4">{{ t('Featured Products','site') }}</h2>
+       <div class="col-md-3"></div>
+       <div class="col-md-3"></div>
+       <div class="col-md-3"></div>
+
+
+    </div>
     {{-- <div class="owl-carousel cats-slider owl-theme show-nav-hover nav-outer appear-animate"> --}}
         <div class="row">
         @foreach($sales as $sale)
@@ -23,12 +30,14 @@
                         </div>
                         @endif
                     </div>
+                    @if (!$sale->is_pag  )
                     <div class="btn-icon-group">
                         <button class="btn-icon btn-add-cart product-type-simple {{ $sale->variants->count() > 0 ? '':'simple' }}" data-toggle="modal" data-target="#addCartModal" data-product-id="{{ $sale['id'] }}" title="{{ t('Add To Cart','site') }}" data-price="{{ $sale->special_price ?? $sale->price }}"><i class="icon-shopping-cart"></i></button>
                         {{-- <a href="#" class="btn-icon btn-add-cart product-type-simple">
                             <i class="icon-shopping-cart"></i>
                         </a> --}}
                     </div>
+                    @endif
                     <a data-slug="{{ $sale->slug }}" href="#" class="btn-quickview"
                         title="{{ t('Quick View','site') }}">{{ t('Quick View','site') }}</a>
                 </figure>
@@ -62,6 +71,7 @@
         @endforeach
 
     </div>
+
 
     <hr class="mt-3 mb-6">
 </section>

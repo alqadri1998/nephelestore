@@ -77,13 +77,15 @@ $wishList = Auth::check()
                         <div class="col-md-10">
                             <h1 class="product-title">{{ $product->name }}</h1>
                         </div>
-                        <div class="col-md-2">
-                            <a href="#"
-                                class="btn-icon-wish addToWishlist {{ in_array($product->id, $wishList) ? 'added-wishlist' : '' }}"
-                                data-product-id="{{ $product->id }}"
-                                title="{{ in_array($product->id, $wishList) ? t('Remove from Wishlist', 'site') : t('Add to Wishlist', 'site') }}"><i
-                                    class="icon-heart" style="font-size: 22px;"></i></a>
-                        </div>
+                        @if (!$product->is_pag)
+                            <div class="col-md-2">
+                                <a href="#"
+                                    class="btn-icon-wish addToWishlist {{ in_array($product->id, $wishList) ? 'added-wishlist' : '' }}"
+                                    data-product-id="{{ $product->id }}"
+                                    title="{{ in_array($product->id, $wishList) ? t('Remove from Wishlist', 'site') : t('Add to Wishlist', 'site') }}"><i
+                                        class="icon-heart" style="font-size: 22px;"></i></a>
+                            </div>
+                        @endif
                     </div>
 
 
@@ -139,21 +141,21 @@ $wishList = Auth::check()
 
                         </ul>
                     @endif
+                    @if (!$product->is_pag)
+                        <div class="product-action">
+                            <div class="product-single-qty">
+                                {{-- <input class="horizontal-quantity form-control" type="text"> --}}
+                            </div><!-- End .product-single-qty -->
 
-                    <div class="product-action">
-                        <div class="product-single-qty">
-                            {{-- <input class="horizontal-quantity form-control" type="text"> --}}
-                        </div><!-- End .product-single-qty -->
+                            <a href="javascript:;" class="btn-add-cart btn btn-dark add-cart mr-2" data-toggle="modal"
+                                data-target="#addCartModal" data-product-id="{{ $product->id }}" data-variant=""
+                                id="add-cart" data-image="{{ $product->getFirstMedia('thumb')->getFullUrl() }}"
+                                data-title="{{ $product->name }}"
+                                title="{{ t('Add To Cart', 'site') }}">{{ t('Add To Cart', 'site') }}</a>
 
-                        <a href="javascript:;" class="btn-add-cart btn btn-dark add-cart mr-2" data-toggle="modal"
-                            data-target="#addCartModal" data-product-id="{{ $product->id }}" data-variant=""
-                            id="add-cart" data-image="{{ $product->getFirstMedia('thumb')->getFullUrl() }}"
-                            data-title="{{ $product->name }}"
-                            title="{{ t('Add To Cart', 'site') }}">{{ t('Add To Cart', 'site') }}</a>
-
-                        {{-- <a href="cart.html" class="btn btn-gray view-cart d-none">{{ t('View cart','site') }}</a> --}}
-                    </div><!-- End .product-action -->
-
+                            {{-- <a href="cart.html" class="btn btn-gray view-cart d-none">{{ t('View cart','site') }}</a> --}}
+                        </div><!-- End .product-action -->
+                    @endif
                     <hr class="divider mb-0 mt-0">
 
                     <!-- End .product single-share -->
@@ -290,130 +292,144 @@ $wishList = Auth::check()
     <!-- End .container -->
     <section class="container pb-3 mb-1">
         @if ($status == 'related')
-
-        <h2 class="section-title ls-n-15 text-center pb-2 m-b-4">{{ t('Related Products','site') }}</h2>
-        <div class="owl-carousel cats-slider owl-theme show-nav-hover nav-outer appear-animate">
-            @foreach($related as $new)
-            @if($new->getFirstMedia('thumb'))
-            <div class="appear-animate" data-animation-name="fadeIn"
-                data-animation-delay="300" data-animation-duration="1000">
-                <div class="product-default inner-quickview inner-icon">
-                    <figure>
-                        <a href="{{ route('product.show', $new->slug) }}">
-                            <img src="{{ $new->getFirstMedia('thumb')? $new->getFirstMedia('thumb')->getFullUrl():'' }}" width="273"
-                                height="273" alt="{{ $new->name }}" />
-                        </a>
-                        <div class="label-group">
-                            {{-- @if($new->new)
+            <h2 class="section-title ls-n-15 text-center pb-2 m-b-4">{{ t('Related Products', 'site') }}</h2>
+            <div class="owl-carousel cats-slider owl-theme show-nav-hover nav-outer appear-animate">
+                @foreach ($related as $new)
+                    @if ($new->getFirstMedia('thumb'))
+                        <div class="appear-animate" data-animation-name="fadeIn" data-animation-delay="300"
+                            data-animation-duration="1000">
+                            <div class="product-default inner-quickview inner-icon">
+                                <figure>
+                                    <a href="{{ route('product.show', $new->slug) }}">
+                                        <img src="{{ $new->getFirstMedia('thumb') ? $new->getFirstMedia('thumb')->getFullUrl() : '' }}"
+                                            width="273" height="273" alt="{{ $new->name }}" />
+                                    </a>
+                                    <div class="label-group">
+                                        {{-- @if ($new->new)
                             <div class="product-label label-hot">{{ t('New') }}</div>
                             @endif --}}
-                            @if(!empty($new->special_price))
-                                <div class="product-label label-sale">
-                                - {{ number_format((($new->price - $new->special_price) / $new->price) * 100, 2)}}%
-                            </div>
-                            @endif
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart product-type-simple {{ $new->variants->count() > 0 ? '':'simple' }}" data-toggle="modal" data-target="#addCartModal" data-product-id="{{ $new['id'] }}" title="{{ t('Add To Cart','site') }}" data-price="{{ $new->special_price ?? $new->price }}"><i class="icon-shopping-cart"></i></button>
-                            {{-- <a href="#" class="btn-icon btn-add-cart product-type-simple">
+                                        @if (!empty($new->special_price))
+                                            <div class="product-label label-sale">
+                                                -
+                                                {{ number_format((($new->price - $new->special_price) / $new->price) * 100, 2) }}%
+                                            </div>
+                                        @endif
+                                    </div>
+                                    @if (!$new->is_pag)
+                                        <div class="btn-icon-group">
+                                            <button
+                                                class="btn-icon btn-add-cart product-type-simple
+                            {{ $new->variants->count() > 0 ? '' : 'simple' }}"
+                                                data-toggle="modal" data-target="#addCartModal"
+                                                data-product-id="{{ $new['id'] }}"
+                                                title="{{ t('Add To Cart', 'site') }}"
+                                                data-price="{{ $new->special_price ?? $new->price }}"><i
+                                                    class="icon-shopping-cart"></i>
+                                            </button>
+                                            {{-- <a href="#" class="btn-icon btn-add-cart product-type-simple">
                                 <i class="icon-shopping-cart"></i>
                             </a> --}}
-                        </div>
-                        <a data-slug="{{ $new->slug }}" href="#" class="btn-quickview"
-                            title="{{ t('Quick View','site') }}">{{ t('Quick View','site') }}</a>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            {{-- <div class="category-list">
+                                        </div>
+                                    @endif
+                                    <a data-slug="{{ $new->slug }}" href="#" class="btn-quickview"
+                                        title="{{ t('Quick View', 'site') }}">{{ t('Quick View', 'site') }}</a>
+                                </figure>
+                                <div class="product-details">
+                                    <div class="category-wrap">
+                                        {{-- <div class="category-list">
                                 <a href="{{ url('/shop/products?category='.$new->category->slug) }}" class="product-category">{{ $new->category?$new->category->name:'' }}</a>
                             </div> --}}
+                                    </div>
+                                    <h3 class="product-title">
+                                        <a href="{{ route('product.show', $new->slug) }}">{{ $new->name }}</a>
+                                    </h3>
+                                    <div class="ratings-container">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                            <span class="tooltiptext tooltip-top"></span>
+                                        </div><!-- End .product-ratings -->
+                                    </div><!-- End .product-container -->
+                                    <div class="price-box">
+                                        @if ($new->special_price && $new->special_price > 0)
+                                            <span class="old-price">{{ $new->price . ' ' . t('SAR', 'site') }}</span>
+                                            <span
+                                                class="product-price">{{ $new->special_price . ' ' . t('SAR', 'site') }}</span>
+                                        @else
+                                            <span class="product-price">{{ $new->price . ' ' . t('SAR', 'site') }}</span>
+                                        @endif
+                                    </div><!-- End .price-box -->
+                                </div><!-- End .product-details -->
+                            </div>
                         </div>
-                        <h3 class="product-title">
-                            <a href="{{ route('product.show', $new->slug) }}">{{ $new->name }}</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            @if($new->special_price && $new->special_price > 0)
-                                <span class="old-price">{{ $new->price .' '. t('SAR', 'site') }}</span>
-                                <span class="product-price">{{ $new->special_price .' '. t('SAR','site') }}</span>
-                            @else
-                                <span class="product-price">{{ $new->price .' '. t('SAR','site') }}</span>
-                            @endif
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
+                    @endif
+                @endforeach
+
             </div>
-            @endif
-            @endforeach
-
-        </div>
         @else
-        <h2 class="section-title ls-n-15 text-center pb-2 m-b-4">{{ t('Package Products','site') }}</h2>
-        <div class="row">
-            @foreach($related as $new)
-            @if($new->getFirstMedia('thumb')||$status != 'related')
-
-                <div class="product-default col-md-2">
-                    <figure>
-                        <a href="{{ route('product.show', $new->slug) }}">
-                            <img src="{{ $new->getFirstMedia('thumb')? $new->getFirstMedia('thumb')->getFullUrl():'' }}" width="273"
-                                height="273" alt="{{ $new->name }}" />
-                        </a>
-                        <div class="label-group">
-                            {{-- @if($new->new)
+            <h2 class="section-title ls-n-15 text-center pb-2 m-b-4">{{ t('Package Products', 'site') }}</h2>
+            <div class="row">
+                @foreach ($related as $new)
+                    @if ($new->getFirstMedia('thumb') || $status != 'related')
+                        <div class="product-default col-md-2">
+                            <figure>
+                                <a href="{{ route('product.show', $new->slug) }}">
+                                    <img src="{{ $new->getFirstMedia('thumb') ? $new->getFirstMedia('thumb')->getFullUrl() : '' }}"
+                                        width="273" height="273" alt="{{ $new->name }}" />
+                                </a>
+                                <div class="label-group">
+                                    {{-- @if ($new->new)
                             <div class="product-label label-hot">{{ t('New') }}</div>
                             @endif --}}
-                            @if(!empty($new->special_price))
-                                <div class="product-label label-sale">
-                                - {{ number_format((($new->price - $new->special_price) / $new->price) * 100, 2)}}%
-                            </div>
-                            @endif
-                        </div>
-                        <div class="btn-icon-group">
-                            <button class="btn-icon btn-add-cart product-type-simple {{ $new->variants->count() > 0 ? '':'simple' }}" data-toggle="modal" data-target="#addCartModal" data-product-id="{{ $new['id'] }}" title="{{ t('Add To Cart','site') }}" data-price="{{ $new->special_price ?? $new->price }}"><i class="icon-shopping-cart"></i></button>
-                            {{-- <a href="#" class="btn-icon btn-add-cart product-type-simple">
+                                    @if (!empty($new->special_price))
+                                        <div class="product-label label-sale">
+                                            -
+                                            {{ number_format((($new->price - $new->special_price) / $new->price) * 100, 2) }}%
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="btn-icon-group">
+                                    <button
+                                        class="btn-icon btn-add-cart product-type-simple {{ $new->variants->count() > 0 ? '' : 'simple' }}"
+                                        data-toggle="modal" data-target="#addCartModal"
+                                        data-product-id="{{ $new['id'] }}" title="{{ t('Add To Cart', 'site') }}"
+                                        data-price="{{ $new->special_price ?? $new->price }}"><i
+                                            class="icon-shopping-cart"></i></button>
+                                    {{-- <a href="#" class="btn-icon btn-add-cart product-type-simple">
                                 <i class="icon-shopping-cart"></i>
                             </a> --}}
-                        </div>
-                        <a data-slug="{{ $new->slug }}" href="#" class="btn-quickview"
-                            title="{{ t('Quick View','site') }}">{{ t('Quick View','site') }}</a>
-                    </figure>
-                    <div class="product-details">
-                        <div class="category-wrap">
-                            {{-- <div class="category-list">
+                                </div>
+                                <a data-slug="{{ $new->slug }}" href="#" class="btn-quickview"
+                                    title="{{ t('Quick View', 'site') }}">{{ t('Quick View', 'site') }}</a>
+                            </figure>
+                            <div class="product-details">
+                                <div class="category-wrap">
+                                    {{-- <div class="category-list">
                                 <a href="{{ url('/shop/products?category='.$new->category->slug) }}" class="product-category">{{ $new->category?$new->category->name:'' }}</a>
                             </div> --}}
+                                </div>
+                                <h3 class="product-title">
+                                    <a href="{{ route('product.show', $new->slug) }}">{{ $new->name }}</a>
+                                </h3>
+                                <div class="ratings-container">
+                                    <div class="product-ratings">
+                                        <span class="ratings" style="width:100%"></span><!-- End .ratings -->
+                                        <span class="tooltiptext tooltip-top"></span>
+                                    </div><!-- End .product-ratings -->
+                                </div><!-- End .product-container -->
+                                <div class="price-box">
+                                    @if ($new->special_price && $new->special_price > 0)
+                                        <span class="old-price">{{ $new->price . ' ' . t('SAR', 'site') }}</span>
+                                        <span class="product-price">{{ $new->special_price . ' ' . t('SAR', 'site') }}</span>
+                                    @else
+                                        <span class="product-price">{{ $new->price . ' ' . t('SAR', 'site') }}</span>
+                                    @endif
+                                </div><!-- End .price-box -->
+                            </div><!-- End .product-details -->
                         </div>
-                        <h3 class="product-title">
-                            <a href="{{ route('product.show', $new->slug) }}">{{ $new->name }}</a>
-                        </h3>
-                        <div class="ratings-container">
-                            <div class="product-ratings">
-                                <span class="ratings" style="width:100%"></span><!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top"></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box">
-                            @if($new->special_price && $new->special_price > 0)
-                                <span class="old-price">{{ $new->price .' '. t('SAR', 'site') }}</span>
-                                <span class="product-price">{{ $new->special_price .' '. t('SAR','site') }}</span>
-                            @else
-                                <span class="product-price">{{ $new->price .' '. t('SAR','site') }}</span>
-                            @endif
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
+                    @endif
+                @endforeach
 
-            @endif
-            @endforeach
-
-        </div>
-
+            </div>
         @endif
 
 
@@ -426,8 +442,8 @@ $wishList = Auth::check()
                     <i class="sicon-earphones-alt"></i>
 
                     <div class="feature-box-content p-0">
-                        <h3 class="text-uppercase">{{ t('Customer Support','site') }}</h3>
-                        <h5>{{ t('Need Assistence?','site') }}</h5>
+                        <h3 class="text-uppercase">{{ t('Customer Support', 'site') }}</h3>
+                        <h5>{{ t('Need Assistence?', 'site') }}</h5>
 
                         {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec vestibulum magna,
                             et dapibus lacus. Lorem ipsum dolor sit amet.</p> --}}
@@ -441,8 +457,8 @@ $wishList = Auth::check()
                     <i class="sicon-credit-card"></i>
 
                     <div class="feature-box-content p-0">
-                        <h3 class="text-uppercase">{{ t('Secured Payment','site') }}</h3>
-                         <h5>{{ t('Safe & Fast','site') }}</h5>
+                        <h3 class="text-uppercase">{{ t('Secured Payment', 'site') }}</h3>
+                        <h5>{{ t('Safe & Fast', 'site') }}</h5>
 
                         {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec vestibulum magna,
                             et dapibus lacus. Lorem ipsum dolor sit amet.</p> --}}
@@ -457,8 +473,8 @@ $wishList = Auth::check()
                     <i class="icon-shipping"></i>
 
                     <div class="feature-box-content p-0">
-                        <h3 class="text-uppercase">{{ t('Free Shipping','site') }}</h3>
-                        <h5>{{ t('Orders Over','site') }}99{{ t('SAR','site') }}</h5>
+                        <h3 class="text-uppercase">{{ t('Free Shipping', 'site') }}</h3>
+                        <h5>{{ t('Orders Over', 'site') }}99{{ t('SAR', 'site') }}</h5>
 
 
                     </div>
